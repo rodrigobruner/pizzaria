@@ -1,0 +1,127 @@
+:root{
+    --default-bg-color: #FFFFFF;
+    --primary-font-color: #00000;
+    --primary-color :#B61600;
+    --secondary-color:#FBAD89;
+    --tertiary-color:#FFAC0E;
+    --page-max-width: 1024px;
+}
+
+body{
+    padding-left: 4vw;
+    padding-top: 10px;
+    background: var(--default-bg-color);
+}
+
+h1{
+    color: var(--primary-color);
+}
+
+hr{
+    border-color: var(--tertiary-color);
+    margin: 20px;
+}
+
+#makePizza{
+    width: 75%;
+    float:left
+}
+
+label {
+    margin-top: 15px;
+    padding: 10px;
+    color: var(--primary-color);
+    display: block;
+    font-weight: bold;
+    
+}
+
+input[type=number]{
+    width: 100px;
+    padding: 10px;
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+input[type=text]{
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    font: inherit;
+    margin-top: 20px;
+    font-weight: bold;
+    outline: 2px solid var(--primary-color);
+    background-color: var(--tertiary-color);
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+button:hover {
+    outline: 2px solid var(--primary-color);
+    background-color: var(--secondary-color);
+    font-weight: bold;
+}
+
+.formGrid {
+    margin-left: 20px;
+    width: 20%;
+    float:left
+}            
+
+.pizzaContainer{
+    margin: 15px;
+    padding: 15px;
+    border-style: solid;
+    border-radius: 5px;
+    border-color: var(--tertiary-color);
+}
+
+.doughContainer label, 
+.sauceContainer label, 
+.cheeseContainer label,
+.toppingsContainer label{
+    display: inline;
+    margin-left: 10px;
+    font-weight: normal;
+}
+
+main{
+    margin-top: 5px;
+    width: 80vw;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.errorMsg{
+    border-color: red;
+    background-color: lightpink;
+    color: red;
+    padding: 10px;
+    margin: 15px;
+    border-radius: 5px;
+}
+
+.successMsg{
+    border-color: green;
+    background-color: lightgreen;
+    color: green;
+    padding: 10px;
+    margin: 15px;
+    border-radius: 5px;
+}
+
+.successMsg img{
+    width: 50px;
+    float: left;
+}
