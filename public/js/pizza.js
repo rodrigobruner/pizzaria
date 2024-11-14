@@ -194,7 +194,7 @@ function addPizzaFields() {
 
             const cheeseOptionInput = document.createElement('input');
             cheeseOptionInput.type = 'checkbox';
-            cheeseOptionInput.name = `cheese${i}`;
+            cheeseOptionInput.name = `cheese${i}[]`;
             cheeseOptionInput.value = cheese;
             cheeseOptionLabel.appendChild(cheeseOptionInput);
         });
@@ -216,7 +216,7 @@ function addPizzaFields() {
             const toppingOptionInput = document.createElement('input');
             toppingOptionInput.type = 'checkbox';
             toppingOptionInput.value = topping;
-            toppingOptionInput.name = `toppings${i}`;
+            toppingOptionInput.name = `toppings${i}[]`;
             toppingOptionLabel.appendChild(toppingOptionInput);
         });
         pizzaContainer.appendChild(toppingsContainer);

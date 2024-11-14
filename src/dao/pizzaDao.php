@@ -2,81 +2,82 @@
 
 class PizzaDAO {
 
+    // DB Connection
     private $pdo;
 
     public function __construct($pdo) {
+        // Get the connection
         $this->pdo = Connection::getConnection();
     }
 
     public function create(Pizza $pizza) {
         try{
-            $sql = "INSERT INTO pizzas (order_id, size, dough_type, sauce_type, cheeses_type, toppings_type) VALUES (?, ?, ?, ?, ?, ?)";
+            // create sql
+            $sql = "INSERT INTO pizzas (orders_id, size, dough_type, sauce_type, cheeses_type, toppings_type) VALUES (?, ?, ?, ?, ?, ?)";
+            // prepare sql
             $stmt = $this->pdo->prepare($sql);
+            // bind values and execute the sql
             $stmt->execute([
-                NULL,
+                $pizza->getOrderId(),
                 $pizza->getSize(),
                 $pizza->getDoughType(),
                 $pizza->getSauceType(),
-                json_encode($pizza->getCheesesType()),
-                json_encode($pizza->getToppingsType())
+                $pizza->getCheesesTypeAsString(),
+                $pizza->getToppingsTypeAsString()
             ]);
-            return $this->pdo->insert_id;
+            // return the last inserted id
+            return $this->pdo->lastInsertId();
         }catch(Exception $e){
             return $e;
         }
     }
 
-    public function read($orderId) {
+
+    public function deletePizzasByOrderID($orderId) {
         try{
-            $sql = "SELECT * FROM pizzas WHERE order_id = ?";
+            // create sql
+            $sql = "DELETE FROM pizzas WHERE orders_id = ?";
+            // prepare sql
             $stmt = $this->pdo->prepare($sql);
+            // bind values and execute the sql
             $stmt->execute([$orderId]);
-            $row = $stmt->fetch();
-            if ($row) {
-                return new Pizza(
+            // return true if success
+            return true;
+        }catch(Exception $e){
+            return $e;
+        }
+    }
+
+
+    public function selectByOrderID($orderId) {
+        try {
+            // create sql
+            $sql = "SELECT * FROM pizzas WHERE orders_id = ?";
+            // prepare sql
+            $stmt = $this->pdo->prepare($sql);
+            // bind values and execute the sql
+            $stmt->execute([$orderId]);
+            // fetch all results
+            $rows = $stmt->fetchAll();
+            $pizzas = [];
+            
+            // foreach pizza, create a new pizza object in array
+            foreach ($rows as $row) {
+                $pizzas[] = new Pizza(
                     $row['order_id'],
                     new Size($row['size']),
                     $row['dough_type'],
                     $row['sauce_type'],
-                    json_decode($row['cheeses_type'], true),
-                    json_decode($row['toppings_type'], true)
+                    $row['cheeses_type'],
+                    $row['toppings_type']
                 );
             }
-            return null;
-        }catch(Exception $e){
+            // return the array of pizzas
+            return $pizzas;
+        } catch (Exception $e) {
             return $e;
         }
     }
-
-    public function update(Pizza $pizza) {
-        try{
-            $sql = "UPDATE pizzas SET size = ?, dough_type = ?, sauce_type = ?, cheeses_type = ?, toppings_type = ? WHERE order_id = ?";
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->execute([
-                $pizza->getSize(),
-                $pizza->getDoughType(),
-                $pizza->getSauceType(),
-                json_encode($pizza->getCheesesType()),
-                json_encode($pizza->getToppingsType()),
-                $pizza->getOrderId()
-            ]);
-            return true;
-        }catch(Exception $e){
-            return $e;
-        }
-    }
-
-    public function delete($orderId) {
-        try{
-            $sql = "DELETE FROM pizzas WHERE order_id = ?";
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->execute([$orderId]);
-            return true;
-        }catch(Exception $e){
-            return $e;
-        }
-    }
-
 }
 
 ?>

@@ -1,9 +1,17 @@
 <?php
     require_once 'components/header.php';
+    require_once 'components/menu.php';
 ?>
 <main>
     <h1>Pizza day!</h1>
-    <div id="messages"></div>
+    <?php
+        if(isset($_GET['error'])){
+            echo '<div class="errorMsg">'.$_GET['error'].'</div>';
+        }
+        if(isset($_GET['success'])){
+            echo '<div class="successMsg">'.$_GET['success'].'</div>';
+        }
+    ?>
     <!-- I stop sending the form to validate the data -->
     <form submit="/" method="POST" onsubmit=""> <!--event.preventDefault();validateForm();-->
         <div id="makePizza">
