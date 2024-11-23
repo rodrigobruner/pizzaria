@@ -31,24 +31,27 @@ class OrderDAO {
         }
     }
 
-    public function select($orderId) {
+    public function list(){
         try {
-            
-            $sql = "SELECT * FROM orders WHERE id = ?";
+            // Create the sql
+            $sql = "SELECT * FROM orders";
+            // Prepare the sql
             $stmt = $this->pdo->prepare($sql);
-            $stmt->execute([$orderId]);
-            $row = $stmt->fetch();
-            if ($row) {
-                return new Order(
+            // Execute the sql
+            $stmt->execute();
+            $orders = [];
+            while ($row = $stmt->fetch()) {
+                $orders[] = new Order(
+                    $row['id'],
                     $row['first_name'],
                     $row['last_name'],
                     $row['email'],
                     $row['phone'],
                     $row['street'],
-                    $row['number']
+                    $row['number'],
                 );
             }
-            return null;
+            return $orders;
         } catch (Exception $e) {
             return $e;
         }
@@ -56,16 +59,19 @@ class OrderDAO {
 
     public function update(Order $order) {
         try {
+            // Create the sql
             $sql = "UPDATE orders SET first_name = ?, last_name = ?, email = ?, phone = ?, street = ?, number = ? WHERE id = ?";
+            // Prepare the sql
             $stmt = $this->pdo->prepare($sql);
+            // Bind the values and execute the sql
             $stmt->execute([
+                $order->getId(),
                 $order->getFirstName(),
                 $order->getLastName(),
                 $order->getEmail(),
                 $order->getPhone(),
                 $order->getStreet(),
                 $order->getNumber(),
-                $order->getId()
             ]);
             return true;
         } catch (Exception $e) {
@@ -75,8 +81,11 @@ class OrderDAO {
 
     public function delete($orderId) {
         try {
+            // Create the sql
             $sql = "DELETE FROM orders WHERE id = ?";
+            // Prepare the sql
             $stmt = $this->pdo->prepare($sql);
+            // Bind the values and execute the sql
             $stmt->execute([$orderId]);
             return true;
         } catch (Exception $e) {
@@ -84,3 +93,4 @@ class OrderDAO {
         }
     }
 }
+?>

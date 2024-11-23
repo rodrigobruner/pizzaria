@@ -46,8 +46,6 @@ class Connection {
     // Prevents the creation of new instances of the class
     public function __wakeup() {}
 
-
-
 }
 
 ?>

@@ -22,17 +22,19 @@ $app->get(  '/', function() use ($orderController) {
     $orderController->index();
 });
 
-
+// List orders
 $app->get('/list', function() use ($orderController) {
-    echo "Order list";
+    $orderController->listOrders();
 });
 
 // Create order
 $app->post( '/', function() use ($orderController) {
-    $orderResult = $orderController->createOrder();
+    $orderResult = $orderController->createOrder(); 
     if($orderResult->getType() == SysMessage::ERROR){
+        //Return to index page with error message
         header("Location: http://localhost/?error=".urlencode($orderResult->getMessage()));
     } else {
+        //Return to index page with success message
         header("Location: http://localhost/?success=".urlencode("Order created successfully"));
     } 
 });

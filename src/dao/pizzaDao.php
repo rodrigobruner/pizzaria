@@ -64,12 +64,12 @@ class PizzaDAO {
             // foreach pizza, create a new pizza object in array
             foreach ($rows as $row) {
                 $pizzas[] = new Pizza(
-                    $row['order_id'],
-                    new Size($row['size']),
+                    $row['orders_id'],
+                    $row['size'],
                     $row['dough_type'],
                     $row['sauce_type'],
-                    $row['cheeses_type'],
-                    $row['toppings_type']
+                    explode(',', $row['cheeses_type']),
+                    explode(',', $row['toppings_type'])
                 );
             }
             // return the array of pizzas

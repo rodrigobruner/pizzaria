@@ -10,7 +10,8 @@ class Order{
     private array $pizzas = [];
 
     // Constructor
-    public function __construct(string $firstName, string $lastName, string $email, string $phone, string $street, string $number){
+    public function __construct(int $id, string $firstName, string $lastName, string $email, string $phone, string $street, string $number){
+        $this->id = $id;
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->email = $email;

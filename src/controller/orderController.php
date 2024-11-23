@@ -1,21 +1,21 @@
 <?php
 class OrderController{
 
-    private $pdo;
-    private $orderDAO;
-    private $pizzaDAO;
+    private $pdo; // Database connection
+    private $orderDAO; // Order DAO
+    private $pizzaDAO; // Pizza DAO
 
+    // Initialize db and DAOs
     public function __construct(){
         $this->pdo = Connection::getConnection();
         $this->orderDAO = new OrderDAO($this->pdo);
         $this->pizzaDAO = new PizzaDAO($this->pdo);
     }
 
-
+    //Home page, with form to create an order
     public function index(){
         include '../src/view/order.php';
     }
-
 
     public function createOrder(){
         // Get the data from the form
@@ -44,6 +44,7 @@ class OrderController{
         }
         // Create new order
         $order = new Order(
+            0,
             $firstName,
             $lastName,
             $email,
@@ -138,4 +139,18 @@ class OrderController{
             return new SysMessage(SysMessage::ERROR, 'An error occurred while creating the pizzas', $e);
         }
     }
+
+
+    public function listOrders(){
+        // Get all orders
+        $orders = $this->orderDAO->list();
+        // For each order, get the pizzas
+        foreach ($orders as $key => $order) {
+            // Set the pizzas in the order
+            $orders[$key]->setPizzas($this->pizzaDAO->selectByOrderID($order->getId()));
+        }
+        include '../src/view/list.php';
+    }
 }
+
+?>

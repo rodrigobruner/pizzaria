@@ -28,8 +28,13 @@ This project is part of the Web Technologies course at Conestoga College. The go
     ```bash
     cd pizzaria
     ```
-3. Create a vhost on your web server pointing to the /public directory
+3. Configure the Apacehe web server 
 
+    3.1 Create a vhost on your web server pointing to the /public directory
+
+    3.2 Enable the mod_rewrite
+
+    3.3 Restart Apache
 
 4. Configuring the database
 

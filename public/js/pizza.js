@@ -299,3 +299,14 @@ function validateForm() {
 
     return true;
 }
+
+function toggleVisibility(id, element) {
+    var row = document.getElementById(id);
+    if (row.style.display === "none") {
+        row.style.display = "table-row";
+        element.innerHTML = '<i class="fa fa-eye-slash"></i> Hide Details';
+    } else {
+        row.style.display = "none";
+        element.innerHTML = '<i class="fa fa-eye"></i> Show Details';
+    }
+}

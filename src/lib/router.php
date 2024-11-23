@@ -36,14 +36,18 @@ class Router {
     /**
      * Resolve the route
      * Call the callback of the route
-     * If the route does not exist, return a 404 error
+     * If the calback does not exist, return a 404 error
      * @return mixed
      */
     public function start() {
+
         $method = $_SERVER['REQUEST_METHOD'];
-        $path = $_SERVER['PATH_INFO'] ?? '/';
+        $uri = $_SERVER['REQUEST_URI'];
+        $path = parse_url($uri, PHP_URL_PATH);
+
         $callback = $this->routes[$method][$path] ?? false;
 
+        // var_dump($path);
         if ($callback === false) {
             http_response_code(404);
             require __DIR__ . '../views/404.php';
