@@ -11,8 +11,8 @@ class Connection {
     // Database settings
     private static $host = 'localhost';
     private static $database = 'pizzaria';
-    private static $username = 'root';
-    private static $password = 'root';
+    private static $username = 'pizzaria';
+    private static $password = 'Yummy!';
 
     //Connection
     private static $conn;

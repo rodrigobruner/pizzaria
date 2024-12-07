@@ -1,6 +1,14 @@
 <?php 
 require_once 'components/header.php';
 require_once 'components/menu.php';
+
+
+if(isset($_GET['error'])){
+    echo '<div class="errorMsg">'.cleanInput($_GET['error']).'</div>';
+}
+if(isset($_GET['success'])){
+    echo '<div class="successMsg">'.cleanInput($_GET['success']).'</div>';
+}
 ?>
 <main>
     <h1>Orders</h1>
@@ -32,6 +40,12 @@ require_once 'components/menu.php';
                     <td>
                         <button onclick="toggleVisibility('order<?php echo $order->getId() ?>', this)">
                             <i class="fa fa-eye"></i> Show Details
+                        </button>
+                        <button onclick="window.location.replace('/?id=<?php echo $order->getId() ?>');"">
+                            <i class="fa fa fa-edit"></i> Edit
+                        </button>
+                        <button onclick="confirm('Do you want delete the order #<?php echo $order->getId() ?>') && window.location.replace('/delete?id=<?php echo $order->getId() ?>');">
+                            <i class="fa fa fa-trash-o"></i> Delete
                         </button>
                     </td>
                 </tr>

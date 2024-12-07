@@ -2,6 +2,7 @@
 include 'lib/router.php';
 include 'lib/connection.php';
 include 'lib/sysMessage.php';
+include 'lib/filter_inputs.php';
 include 'model/order.php';
 include 'dao/orderDao.php';
 include 'model/pizza.php';
@@ -27,15 +28,26 @@ $app->get('/list', function() use ($orderController) {
     $orderController->listOrders();
 });
 
-// Create order
-$app->post( '/', function() use ($orderController) {
-    $orderResult = $orderController->createOrder(); 
-    if($orderResult->getType() == SysMessage::ERROR){
+// List orders
+$app->get('/delete', function() use ($orderController) {
+    if($orderController->delete()->getType() == SysMessage::ERROR){
         //Return to index page with error message
-        header("Location: http://localhost/?error=".urlencode($orderResult->getMessage()));
+        header("Location: ./list/?error=".urlencode($orderResult->getMessage()));
     } else {
         //Return to index page with success message
-        header("Location: http://localhost/?success=".urlencode("Order created successfully"));
+        header("Location: ./list/?success=".urlencode("Order deleted successfully"));
+    }
+});
+
+// Create order
+$app->post( '/', function() use ($orderController) {
+    $orderResult = $orderController->saveOrder(); 
+    if($orderResult->getType() == SysMessage::ERROR){
+        //Return to index page with error message
+        header("Location: ./?error=".urlencode($orderResult->getMessage()));
+    } else {
+        //Return to index page with success message
+        header("Location: ./?success=".urlencode("Order saved successfully"));
     } 
 });
 

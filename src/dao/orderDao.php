@@ -65,13 +65,13 @@ class OrderDAO {
             $stmt = $this->pdo->prepare($sql);
             // Bind the values and execute the sql
             $stmt->execute([
-                $order->getId(),
                 $order->getFirstName(),
                 $order->getLastName(),
                 $order->getEmail(),
                 $order->getPhone(),
                 $order->getStreet(),
                 $order->getNumber(),
+                $order->getId(),
             ]);
             return true;
         } catch (Exception $e) {
@@ -88,6 +88,31 @@ class OrderDAO {
             // Bind the values and execute the sql
             $stmt->execute([$orderId]);
             return true;
+        } catch (Exception $e) {
+            return $e;
+        }
+    }
+
+
+    function getById($orderId) {
+        try {
+            // Create the sql
+            $sql = "SELECT * FROM orders WHERE id = ?";
+            // Prepare the sql
+            $stmt = $this->pdo->prepare($sql);
+            // Bind the values and execute the sql
+            $stmt->execute([$orderId]);
+            // Fetch the result
+            $row = $stmt->fetch();
+            return new Order(
+                $row['id'],
+                $row['first_name'],
+                $row['last_name'],
+                $row['email'],
+                $row['phone'],
+                $row['street'],
+                $row['number'],
+            );
         } catch (Exception $e) {
             return $e;
         }

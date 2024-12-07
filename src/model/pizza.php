@@ -82,4 +82,15 @@ class Pizza{
     public function setToppingsType(array $toppingsType){
         $this->toppingsType = $toppingsType;
     }
+
+    public function toArray() {
+        return [
+            'orderId' => $this->orderId,
+            'size' => $this->size,
+            'doughType' => $this->doughType,
+            'sauceType' => $this->sauceType,
+            'cheesesType' => $this->cheesesType,
+            'toppingsType' => $this->toppingsType
+        ];
+    }
 }

@@ -1,3 +1,29 @@
+
+// Function to add the fields for the pizzas
+function addPizzaForm(qt) {
+    for(let i = 1; i <= qt; i++) {
+        addPizzaFields();
+    }
+}
+
+// Function to populate the form with the data from the database
+function populatePizzaForm(data) {
+    // console.log(data);
+    data.forEach((pizza, i) => { // For each pizza in the data, populate the form
+        document.querySelector(`select[name="size${i + 1}"]`).value = pizza.size;
+        document.querySelector(`input[name="dough${i + 1}"][value="${pizza.doughType}"]`).checked = true;
+        document.querySelector(`input[name="sauce${i + 1}"][value="${pizza.sauceType}"]`).checked = true;
+
+        pizza.cheesesType.forEach(cheese => {
+            document.querySelector(`input[name="cheese${i + 1}[]"][value="${cheese.trim()}"]`).checked = true;
+        });
+
+        pizza.toppingsType.forEach(topping => {
+            document.querySelector(`input[name="toppings${i + 1}[]"][value="${topping.trim()}"]`).checked = true;
+        });
+    });
+}
+
 function addPizzaFields() {
     /* Define the options for each field */
     const sizes = ['Small', 'Medium', 'Large', 'X-Large'];

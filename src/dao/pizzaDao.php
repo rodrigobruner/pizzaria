@@ -49,6 +49,29 @@ class PizzaDAO {
     }
 
 
+    public function update(Pizza $pizza) {
+        try{
+            // create sql
+            $sql = "Update pizzas SET size = ?, dough_type = ?, sauce_type = ?, cheeses_type = ?, toppings_type = ? WHERE orders_id = ?";
+            // prepare sql
+            $stmt = $this->pdo->prepare($sql);
+            // bind values and execute the sql
+            $stmt->execute([
+                $pizza->getSize(),
+                $pizza->getDoughType(),
+                $pizza->getSauceType(),
+                $pizza->getCheesesTypeAsString(),
+                $pizza->getToppingsTypeAsString(),
+                $pizza->getOrderId()
+            ]);
+            // return the last inserted id
+            return $pizza->getOrderId();
+        }catch(Exception $e){
+            return $e;
+        }
+    }
+
+
     public function selectByOrderID($orderId) {
         try {
             // create sql
