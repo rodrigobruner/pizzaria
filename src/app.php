@@ -32,10 +32,10 @@ $app->get('/list', function() use ($orderController) {
 $app->get('/delete', function() use ($orderController) {
     if($orderController->delete()->getType() == SysMessage::ERROR){
         //Return to index page with error message
-        header("Location: ./list/?error=".urlencode($orderResult->getMessage()));
+        header("Location: ./list?error=".urlencode($orderResult->getMessage()));
     } else {
         //Return to index page with success message
-        header("Location: ./list/?success=".urlencode("Order deleted successfully"));
+        header("Location: ./list?success=".urlencode("Order deleted successfully"));
     }
 });
 

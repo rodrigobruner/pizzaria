@@ -4,6 +4,11 @@
 
 This project is part of the Web Technologies course at Conestoga College. The goal of this assignment is to develop a web application that demonstrates the use of various web technologies and best practices.
 
+<p align="center">
+<img src="scscreen_recording.gif" alt="Recording the screen." style="width:600px;"/>
+</p>
+
+
 ## Features
 
 - Responsive design

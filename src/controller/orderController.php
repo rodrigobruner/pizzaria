@@ -17,7 +17,7 @@ class OrderController{
 
         $order = null;
         $pizzas = null;
-        if(cleanInput($_GET['id']) > 0){
+        if(isset($_GET['id']) && cleanInput($_GET['id']) > 0){
             $order = $this->orderDAO->getById(cleanInput($_GET['id']));
             $pizzas = $this->pizzaDAO->selectByOrderID(cleanInput($_GET['id']));
         }
